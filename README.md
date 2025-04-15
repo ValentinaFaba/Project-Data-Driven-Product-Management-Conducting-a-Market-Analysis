@@ -48,3 +48,23 @@ CSV files in the "Files/data" folder, which offer international and national-lev
 | `'gym_workout_2018_2023'` | Index representing the popularity of the keyword 'gym workout' during the 5 year period.  |
 | `'home_gym_2018_2023'` | Index representing the popularity of the keyword 'home gym' during the 5 year period. |
 
+# Import the necessary libraries and csv files
+import pandas as pd
+import matplotlib.pyplot as plt
+workout = pd.read_csv('data/workout.csv')
+keywords = pd.read_csv('data/three_keywords.csv')
+workout_geo = pd.read_csv('data/workout_geo.csv')
+keywords_geo = pd.read_csv('data/three_keywords_geo.csv')
+#Find the time of peak searches for workout
+peak = workout['workout_worldwide'].max()
+peak_month = workout.loc[workout['workout_worldwide'] == peak,'month'].iloc[0]
+year_str = peak_month.split('-')[0]
+print('The year when the global search for workout was in its peaks was', year_str)
+#Use visualization to identify the highest value for 'workout' searches.
+plt.figure(figsize=(12,6))
+plt.plot(workout['month'], workout['workout_worldwide'])
+plt.xticks(rotation = 90)
+plt.xlabel('Date')
+plt.ylabel('Index 0-100')
+plt.title('Global search of the word "workout"')
+plt.show()
