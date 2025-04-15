@@ -1,0 +1,72 @@
+#Import the necessary libraries and csv files
+import pandas as pd
+import matplotlib.pyplot as plt
+workout = pd.read_csv('data/workout.csv')
+keywords = pd.read_csv('data/three_keywords.csv')
+workout_geo = pd.read_csv('data/workout_geo.csv')
+keywords_geo = pd.read_csv('data/three_keywords_geo.csv')
+#Find the time of peak searches for workout
+peak = workout['workout_worldwide'].max()
+peak_month = workout.loc[workout['workout_worldwide'] == peak,'month'].iloc[0]
+year_str = peak_month.split('-')[0]
+print('The year when the global search for workout was in its peaks was', year_str)
+#Use visualization to identify the highest value for 'workout' searches.
+plt.figure(figsize=(12,6))
+plt.plot(workout['month'], workout['workout_worldwide'])
+plt.xticks(rotation = 90)
+plt.xlabel('Date')
+plt.ylabel('Index 0-100')
+plt.title('Global search of the word "workout"')
+plt.show()
+#Find the most popular keywords during covid
+keywords['month_pandemics'] = (keywords['month'] >= '2020-03') & (keywords['month'] < '2022-6')
+filter_month_pandemics = keywords[keywords['month_pandemics']]
+max_home_workout_worldwide = keywords['home_workout_worldwide'].max()
+peak_hw = keywords.loc[keywords['home_workout_worldwide'] == max_home_workout_worldwide,'month'].iloc[0]
+print('The word "home workout", has a its peak in the pandemic with then index n°', max_home_workout_worldwide, 'in', peak_hw)
+peak_covid = 'home workout'
+#Use a line plot to identify the most popular keywords.
+fig, ax = plt.subplots(figsize=(12, 6))
+ax.plot(filter_month_pandemics['month'], filter_month_pandemics['home_workout_worldwide'], label='word: "Home workout"')
+ax.plot(filter_month_pandemics['month'], filter_month_pandemics['gym_workout_worldwide'], label='word: "Gym workout"')
+ax.plot(filter_month_pandemics['month'], filter_month_pandemics['home_gym_worldwide'], label='word: "Home gym"') 
+ax.set_xlabel('Date')
+ax.set_ylabel('Index 0-100')
+ax.set_title('The most popular word during the covid pandemic')
+plt.xticks(rotation=90)
+plt.legend()
+plt.show()
+#Find the most popular keywords for the post covid
+keywords['post_month_pandemics'] = (keywords['month'] >= '2022-06') & (keywords['month'] < '2023-12')
+post_filter_month_pandemics = keywords[keywords['post_month_pandemics']]
+max_gym_workout_worldwide = keywords['gym_workout_worldwide'].max()
+peak_gw = keywords.loc[keywords['gym_workout_worldwide'] == max_gym_workout_worldwide,'month'].iloc[0]
+print('The word "gym workout", has its peak in the post pandemic with the index n°',max_gym_workout_worldwide, 'in', peak_gw)
+current = "gym workout"
+#Visualize the three keywords on a line plot.
+fig, ax = plt.subplots(figsize=(12, 6))
+ax.plot(post_filter_month_pandemics['month'], post_filter_month_pandemics['home_workout_worldwide'], label='word: "Home workout"')
+ax.plot(post_filter_month_pandemics['month'], post_filter_month_pandemics['gym_workout_worldwide'], label='word: "Gym workout"')
+ax.plot(post_filter_month_pandemics['month'], post_filter_month_pandemics['home_gym_worldwide'], label='word: "Home gym"') 
+ax.set_xlabel('Date')
+ax.set_ylabel('Index 0-100')
+ax.set_title('The most popular word in the post pandemic period')
+plt.xticks(rotation=90)
+plt.legend()
+plt.show()
+#Find the country with the highest interest for workouts
+countries = ['United States', 'Japan', 'Australia']
+filtered_workout_geo = workout_geo[workout_geo['country'].isin(countries)]
+max_workout = filtered_workout_geo['workout_2018_2023'].max()
+max_row_workout = filtered_workout_geo[filtered_workout_geo['workout_2018_2023'] == max_workout]
+country_top = max_row_workout['country'].iloc[0]
+print('The country which has the highest interest for workouts is', country_top)
+top_country = 'United States'
+#Find the country in the MESA region with the highest interest in home workouts
+countries_asia = ['Philippines', 'Malaysia']
+filter_keywords_asia = keywords_geo[keywords_geo['Country'].isin(countries_asia)]
+max_hw = filter_keywords_asia['home_workout_2018_2023'].max()
+max_country_hw = filter_keywords_asia[filter_keywords_asia['home_workout_2018_2023'] == max_hw]
+country_asia_name = max_country_hw['Country'].iloc[0]
+print('The country which has the highest interest in home workouts is', country_asia_name)
+home_workout_geo = 'Philippines'
