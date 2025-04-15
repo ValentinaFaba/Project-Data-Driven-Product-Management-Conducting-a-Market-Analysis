@@ -12,3 +12,39 @@ Instructions:
 
 -You'd be interested in expanding your virtual home workouts offering to either the Philippines or Malaysia. Which of the two countries has the highest interest in home workouts?
 
+
+### The Data
+CSV files in the "Files/data" folder, which offer international and national-level data on Google Trends keyword searches related to fitness and related products. 
+
+### workout.csv
+
+| Column     | Description              |
+|------------|--------------------------|
+| `'month'` | Month when the data was measured. |
+| `'workout_worldwide'` | Index representing the popularity of the keyword 'workout', on a scale of 0 to 100. |
+
+### three_keywords.csv
+
+| Column     | Description              |
+|------------|--------------------------|
+| `'month'` | Month when the data was measured. |
+| `'home_workout_worldwide'` | Index representing the popularity of the keyword 'home workout', on a scale of 0 to 100. |
+| `'gym_workout_worldwide'` | Index representing the popularity of the keyword 'gym workout', on a scale of 0 to 100. |
+| `'home_gym_worldwide'` | Index representing the popularity of the keyword 'home gym', on a scale of 0 to 100. |
+
+### workout_geo.csv
+
+| Column     | Description              |
+|------------|--------------------------|
+| `'country'` | Country where the data was measured. |
+| `'workout_2018_2023'` | Index representing the popularity of the keyword 'workout' during the 5 year period. |
+
+### three_keywords_geo.csv
+
+| Column     | Description              |
+|------------|--------------------------|
+| `'country'` | Country where the data was measured. |
+| `'home_workout_2018_2023'` | Index representing the popularity of the keyword 'home workout' during the 5 year period. |
+| `'gym_workout_2018_2023'` | Index representing the popularity of the keyword 'gym workout' during the 5 year period.  |
+| `'home_gym_2018_2023'` | Index representing the popularity of the keyword 'home gym' during the 5 year period. |
+
